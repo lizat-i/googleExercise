@@ -1,4 +1,4 @@
-#!/usr/bin/python -tt
+#!/usr/bin/env python
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -38,6 +38,8 @@ print_words() and print_top().
 """
 
 import sys
+from functools import partial
+
 
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
@@ -45,7 +47,35 @@ import sys
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
 
+def dicthelper(filename):
+  f = open(filename,"rU")
+  text = f.read(),   
+  #unique_list = sorted(list(set(text[0].lower().split())))
+  unique_list = list(set(text[0].lower().split()))
+  
+  dictOfWords = {}
+ 
+  for word in unique_list:   
+    dictOfWords[word] = text[0].lower().split().count(word)
+  return dictOfWords
+  
+def get_Count(tuplinger):
+  return tuplinger[1]
+  
+def helper1(dictionary,word):
+  return dictionary[word]
+
 ###
+def print_words(filename):
+  dictofWords = dicthelper(filename)
+  for word in sorted(dictofWords): print word , dictofWords[word]
+  return None  
+  
+def print_top(filename):
+  dictofWords = dicthelper(filename)
+  itemsList = sorted(dictofWords, key= lambda helper2 : helper1(dictofWords,helper2), reverse=True)
+  for item in itemsList[:20]: print item, dictofWords[item]
+  return None
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
@@ -53,7 +83,6 @@ def main():
   if len(sys.argv) != 3:
     print 'usage: ./wordcount.py {--count | --topcount} file'
     sys.exit(1)
-
   option = sys.argv[1]
   filename = sys.argv[2]
   if option == '--count':
