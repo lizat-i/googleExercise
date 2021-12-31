@@ -12,23 +12,23 @@ import sys
 import re
 # Define HelperFunction
 
-def Find(pat, tex, groupswitch=0):
+def find_helper(pat, tex, groupswitch=0):
   match = re.search(r'%s'%pat,tex)
-  if match:  print match.group(groupswitch)
-  else:  print 'notFound!'
+  if match:  print(match.group(groupswitch))
+  else:  print('notFound!')
 
 
 # Define a main()
 def main():
-  textExample = 'sadjk .s.fsda@sdflksdafmlkasdfsdafs ivan.lizat@outlook.de iweaufdni efwu dfsdfsdfsd.sdfsdfsdfsdfsdf'
-  Find('\s\w+\.\w+\@\w+\.\w+',textExample)
-  Find('\s\w+\.\w+\@\w+\.\w+',textExample,0)
-  Find('(\s\w+\.\w+)\@(\w+\.\w+)',textExample,1)
-  Find('(\s\w+\.\w+)\@(\w+\.\w+)',textExample,2)
-  
-  match = re.findall('\s\w+\.\w+\@\w+\.\w+',textExample)  
-  print match
-  
+  text_example = 'sadjk .s.fsda ivo80.17@hotmail.de @sdflksdafmlkasdfsdafs ivan.lizat@outlook.de iweaufdni efwu dfsdfsdfsd.sdfsdfsdfsdfsdf'
+  find_helper('\s\w+\.\w+\@\w+\.\w+',text_example)
+  find_helper('\s\w+\.\w+\@\w+\.\w+',text_example,0)
+  find_helper('(\s\w+\.\w+)\@(\w+\.\w+)',text_example,1)
+  find_helper('(\s\w+\.\w+)\@(\w+\.\w+)',text_example,2)
+
+  match = re.findall('\s\w+\.\w+\@\w+\.\w+',text_example)
+  print(type(match))
+
   return None
 
 # This is the standard boilerplate that calls the main() function.
