@@ -55,18 +55,18 @@ def extract_names(filename):
   followed by the name-rank strings in alphabetical order.
   ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
   """
-    teststring = get_file_as_list_of_words(filename='baby1990.html')
-    year  = re.search('Popularity in (\d\d\d\d)</h3>',teststring)
-    print year.groups(1)
-    match = re.findall('tr align="right"><td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', teststring)
+    text = get_file_as_list_of_words(filename)
+    year = re.search('Popularity in (\d+)</h3>', text)
+    match = re.findall('tr align="right"><td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', text)
+
     dict_name_rank = {}
+
     for rank_gend_tuple in match:
         # TODO: add HERE AFTERWARDS TWO CHECK WRAPPERS IF THER entries are already given
         # TODO: adnd if the ranke is higher ow lower then the list which is inside
         dict_name_rank[rank_gend_tuple[1]] = rank_gend_tuple[0]
         dict_name_rank[rank_gend_tuple[2]] = rank_gend_tuple[0]
-    year_names_and_ranks_sorted = sorted(dict_name_rank.items())
-  
+    year_names_and_ranks_sorted = [year.groups(0)[0], sorted(dict_name_rank.items())]
     return year_names_and_ranks_sorted
 
 
@@ -88,6 +88,8 @@ def main():
         del args[0]
     print args[0]
     rny_list = extract_names(args[0])
+    print(rny_list)
+
 
 if __name__ == '__main__':
     main()
